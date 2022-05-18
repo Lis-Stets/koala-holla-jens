@@ -29,18 +29,34 @@ function setupClickListeners() {
 
 function getKoalas(){
   console.log( 'in getKoalas' );
-  // // ajax call to server to get koalas
-  // $.ajax({
-  //   method: 'GET',
-  //   url: '/koala_router'
-  // }).then( function( response ){
-  //   console.log( response );
-  //   //add ready to transfer conditional here
-  //   //append Koalas here
-  // }).catch( function( err ){
-  //   console.log( err );
-  //   alert( 'error getting koalas');
-  // })// end AJAX
+  // ajax call to server to get koalas
+  $.ajax({
+    method: 'GET',
+    url: '/koala_router'
+  }).then( function( response ){
+    console.log( response );
+    //add ready to transfer conditional here
+    //append Koalas here
+    let el = $( '#viewKoalas' );
+    el.empty();
+    for( let i=0; i<response.length; i++ ){
+      let readyButton = '';
+      if( response[i].ready_to_transfer = false ){
+        readyButton = '<button>Ready for Transfer</button>'
+      }
+      el.append( 
+        `<tr>
+          <td>${response[i].name}</td>
+          <td>${response[i].age}</td>
+          <td>${response[i].name}</td>
+          <td>${response[i].ready_to_transfer}</td>
+          <td>${response[i].notes}</td>
+        </tr> ${readyButton}`)
+    }
+  }).catch( function( err ){
+    console.log( err );
+    alert( 'error getting koalas');
+  })// end AJAX
 } // end getKoalas
 
 function saveKoala( newKoala ){
