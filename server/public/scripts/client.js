@@ -29,8 +29,18 @@ function setupClickListeners() {
 
 function getKoalas(){
   console.log( 'in getKoalas' );
-  // ajax call to server to get koalas
-  
+  // // ajax call to server to get koalas
+  // $.ajax({
+  //   method: 'GET',
+  //   url: '/koala_router'
+  // }).then( function( response ){
+  //   console.log( response );
+  //   //add ready to transfer conditional here
+  //   //append Koalas here
+  // }).catch( function( err ){
+  //   console.log( err );
+  //   alert( 'error getting koalas');
+  // })// end AJAX
 } // end getKoalas
 
 function saveKoala( newKoala ){
