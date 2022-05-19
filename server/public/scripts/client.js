@@ -48,7 +48,7 @@ function getKoalas(){
         `<tr>
           <td>${response[i].name}</td>
           <td>${response[i].age}</td>
-          <td>${response[i].name}</td>
+          <td>${response[i].gender}</td>
           <td>${response[i].ready_to_transfer}</td>
           <td>${response[i].notes}</td>
           <td>${readyButton}</td>
