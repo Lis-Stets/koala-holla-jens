@@ -11,3 +11,5 @@ CREATE TABLE koalas(
 
 INSERT INTO koalas ( name, gender, age, ready_to_transfer, notes ) VALUES ( 'Scotty', 'M', '4', 'Y', 'Born in Guatemala' );
 SELECT * FROM koalas;
+DELETE FROM koalas WHERE id = 11
+UPDATE koalas SET ready_to_transfer = 'TRUE' WHERE id = 8;

@@ -10,6 +10,8 @@ $( document ).ready( function(){
 }); // end doc ready
 
 function setupClickListeners() {
+  $( '#viewKoalas' ).on( 'click', '.deleteButton', deleteKoala );
+  $( '#viewKoalas' ).on( 'click', '.ready_to_transferButton', transferKoala ); // dynamically created button
   $( '#addButton' ).on( 'click', function(){
     console.log( 'in addButton on click' );
     // get user input and put in an object
@@ -26,6 +28,20 @@ function setupClickListeners() {
   }); 
 }// end setupClickListeners
 
+function deleteKoala(){
+  console.log( 'in deleteKoala', $( this ).data( 'id' ) );
+  $.ajax({
+    method: 'DELETE',
+    url: `/koala_router?id=${ $( this ).data( 'id' ) }`
+  }).then( function( response ){
+    console.log( response );
+    getKoalas();
+  }).catch( function( err ){
+    console.log( err );
+    alert( 'error deleting koala' );
+  })// end DELETE
+}// end deleteKoala
+
 function getKoalas(){
   console.log( 'in getKoalas' );
   // ajax call to server to get koalas
@@ -41,9 +57,8 @@ function getKoalas(){
     for( let i=0; i<response.length; i++ ){
       let readyButton = '';
       if( response[i].ready_to_transfer === false ){
-        readyButton = '<button>Ready to Transfer</button>'
+        readyButton = `<button class="ready_to_transferButton" data-id="${response[i].id}">Ready to Transfer</button>`
       }
-    
       el.append( 
         `<tr>
           <td>${response[i].name}</td>
@@ -52,6 +67,7 @@ function getKoalas(){
           <td>${response[i].ready_to_transfer}</td>
           <td>${response[i].notes}</td>
           <td>${readyButton}</td>
+          <td><button class="deleteButton" data-id="${response[i].id}">Remove Koala</button></td>
         </tr>`)
     }
   }).catch( function( err ){
@@ -76,3 +92,17 @@ function saveKoala( newKoala ){
     alert( 'error saving koala' );
   })// end POST
 }// end saveKoala
+
+function transferKoala(){
+  console.log( 'in transferKoala', $( this ).data( 'id' ) );
+  $.ajax({
+    method: 'PUT',
+    url: `/koala_router?id=${ $( this ).data( 'id' ) }`
+  }).then( function( response ){
+    console.log( response );
+    getKoalas();
+  }).catch( function( err ){
+    console.log( err );
+    alert( 'error marking koala for transfer' );
+  })
+}// end transferKoala
