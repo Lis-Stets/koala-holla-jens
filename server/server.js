@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 5001;
 const koalaRouter = require('./routes/koala_router')
 
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('server/public'));
 
 // ROUTES

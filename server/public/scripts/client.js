@@ -17,14 +17,14 @@ function setupClickListeners() {
       name: $( '#nameIn' ).val(),
       age: $( '#ageIn' ).val(),
       gender: $( '#genderIn' ).val(),
-      readyToTransfer: $( '#readyToTransferIn' ).val(),
+      ready_to_transfer: $( '#readyToTransferIn' ).val(),
       notes: $( '#notesIn' ).val()
     };
     console.log( koalaToSend );
     // call saveKoala with the new obejct
     saveKoala( koalaToSend );
   }); 
-}
+}// end setupClickListeners
 
 function getKoalas(){
   console.log( 'in getKoalas' );
@@ -63,5 +63,16 @@ function getKoalas(){
 function saveKoala( newKoala ){
   console.log( 'in saveKoala', newKoala );
   // ajax call to server to post koalas
- 
-}
+  $.ajax({
+    method: 'POST',
+    url: '/koala_router',
+    data: newKoala
+  }).then( function( response ){
+    console.log( 'back from POST:', response );
+    //run getKoalas to dispaly new koala on the DOM
+    getKoalas();
+  }).catch( function( err ){
+    console.log( err );
+    alert( 'error saving koala' );
+  })// end POST
+}// end saveKoala
